@@ -37,7 +37,7 @@ add_filter('body_class', function ($classes) {
     $remove_classes = [
         'page-template-default',
         $home_id_class
-    ]
+    ];
     
     $classes = array_diff($classes, $remove_classes);
 
