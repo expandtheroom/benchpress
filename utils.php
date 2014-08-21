@@ -3,7 +3,7 @@
 class BPUtils {
 
     public static function pr($mixed) {
-        echo '<pre>' . print_r($mixed) . '</pre>';
+        echo '<pre>'; print_r($mixed); '</pre>';
     }
 
     public static function prd($mixed) {
