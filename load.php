@@ -9,5 +9,5 @@ require(__DIR__ . '/partial.php');
 require(__DIR__ . '/scripts.php');
 
 require_if_theme_supports('bp-clean-up', __DIR__ . '/clean-up.php');
-require_if_theme_supports('login-logo', __DIR__ . '/login-logo.php');
+require_if_theme_supports('bp-login-logo', __DIR__ . '/login-logo.php');
 require_if_theme_supports('bp-google-analytics', __DIR__ . '/google-analytics.php');
