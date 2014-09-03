@@ -15,7 +15,7 @@ function bp_google_analytics($ua) {
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
             })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-            ga('create', $ua, 'auto');
+            ga('create', '<?php echo $ua ?>', 'auto');
             ga('send', 'pageview');
 
         </script>
