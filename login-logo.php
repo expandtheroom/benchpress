@@ -1,7 +1,10 @@
 <?php
 
 /**
- * Custom Login screen logo and url
+ * Replaces the Wordpress logo with a custom logo on the admin login screen and makes it link back to the site homepage.
+ * 
+ * @param  string $logo_path The absolute path to the logo image
+ * @param  array $dims An associative array containing the 'width' and 'height' of the image. These values will be used directly as the css property values for width and height so units are required.
  */
 function bp_login_logo($logo_path, $dims) {
 
