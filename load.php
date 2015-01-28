@@ -1,5 +1,9 @@
 <?php
 
+if(!defined('BENCHPRESS')) {
+    define('BENCHPRESS', 1);
+}
+
 require(__DIR__ . '/config.php');
 require(__DIR__ . '/utils.php');
 require(__DIR__ . '/asset-helper.php');
