@@ -3,10 +3,10 @@
 /**
  * Includes the Google Analytics tracking code in the footer of every page on the site
  * 
- * @param  [type] $ua The UA account number
+ * @param string $ua The UA account number
  */
 function bp_google_analytics($ua) {
-    add_action('wp_footer', function() {
+    add_action('wp_footer', function() use ($ua) {
         ?>
         
         <script>
