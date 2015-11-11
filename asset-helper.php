@@ -1,6 +1,6 @@
 <?php
 
-class BPAssetHelper {
+class BP_Asset_Helper {
 
     public static function get_image($file) {
         return self::get_asset('img/' . $file);
