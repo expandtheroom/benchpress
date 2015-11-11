@@ -24,18 +24,23 @@ class BP_Admin_Helper {
      * @param boolean $plugins include plugin notification messages to be hidden. default true
      */
     static function hide_updates($plugins = true) {
-        if (!current_user_can('update_core')) {
-            remove_action( 'admin_notices', 'update_nag', 3 );
-        }
+        add_action( 'after_setup_theme', function()
+        {
 
-        add_action('init', create_function('$a',"remove_action( 'init', 'wp_version_check' );"),2);
-        add_filter('pre_option_update_core','__return_null');
-        add_filter('pre_site_transient_update_core','__return_null');
+            if (!current_user_can('update_core')) {
+                remove_action( 'admin_notices', 'update_nag', 3 );
+            }
 
-        //disable plugin update notifications
-        if ($plugins) {
-            remove_action('load-update-core.php','wp_update_plugins');
-            add_filter('pre_site_transient_update_plugins','__return_null');
-        }
+            add_action('init', create_function('$a',"remove_action( 'init', 'wp_version_check' );"),2);
+            add_filter('pre_option_update_core','__return_null');
+            add_filter('pre_site_transient_update_core','__return_null');
+
+            //disable plugin update notifications
+            if ($plugins) {
+                remove_action('load-update-core.php','wp_update_plugins');
+                add_filter('pre_site_transient_update_plugins','__return_null');
+            }
+
+        }, 1);
     }
 }
