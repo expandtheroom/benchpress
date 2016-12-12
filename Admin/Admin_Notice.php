@@ -3,8 +3,6 @@
 namespace BenchPress\Admin;
 
 /**
- * Class Admin_Notice
- *
  * Create admin notices with the WP Admin. Admin Notices should be created by calling
  * the static ::create method.
  *
