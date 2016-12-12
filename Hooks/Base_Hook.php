@@ -1,6 +1,6 @@
 <?php
 
-namespace BP\Hooks;
+namespace BenchPress\Hooks;
 
 abstract class Base_Hook {
 

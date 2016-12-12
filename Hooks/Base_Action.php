@@ -1,6 +1,6 @@
 <?php
 
-namespace BP\Hooks;
+namespace BenchPress\Hooks;
 
 /**
  * Class Base_Action
@@ -8,7 +8,7 @@ namespace BP\Hooks;
  * Base class for implementing WordPress actions. Sub-classes must implement
  * a callback method which will be called when the action is triggered.
  *
- * @package BP\Hooks
+ * @package BenchPress\Hooks
  */
 abstract class Base_Action extends Base_Hook {
 

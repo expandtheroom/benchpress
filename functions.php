@@ -1,6 +1,6 @@
 <?php
 
-namespace BP;
+namespace BenchPress;
 
 /**
  * This file contains various helper functions for use in your theme.

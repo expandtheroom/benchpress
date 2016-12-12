@@ -1,8 +1,8 @@
 <?php
 
-namespace BP\Theme_Support;
+namespace BenchPress\Theme_Support;
 
-use BP\Hooks\Base_Action;
+use BenchPress\Hooks\Base_Action;
 
 class Theme_Support extends Base_Action {
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace BP\Post_Type;
+namespace BenchPress\Post_Type;
 
 /**
  * Extend this class to create your post types. The post type slug can be accessed
@@ -9,7 +9,7 @@ namespace BP\Post_Type;
  * If your post type class was called My_Post_Type, you would
  * be able to access the post type slug like so: My_Post_Type::post_type()
  *
- * @package BP\Post_Type
+ * @package BenchPress\Post_Type
  */
 abstract class Base_Post_Type {
 

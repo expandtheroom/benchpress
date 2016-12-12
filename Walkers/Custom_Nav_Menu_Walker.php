@@ -1,12 +1,12 @@
 <?php
 
-namespace BP\Walkers;
+namespace BenchPress\Walkers;
 
 /**
  * A Customer Nav Walker that can be used to provide more control over the
  * output when calling wp_nav_menu.
  */
-class Custom_Nav_Menu_Walker extends \Walker_Nav_Menu {
+class Custom_Nav_Menu_Walker extends Walker_Nav_Menu {
 
     protected $args = [
         /**

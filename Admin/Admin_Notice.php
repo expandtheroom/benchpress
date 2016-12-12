@@ -1,6 +1,6 @@
 <?php
 
-namespace BP\Admin;
+namespace BenchPress\Admin;
 
 /**
  * Class Admin_Notice
@@ -8,7 +8,7 @@ namespace BP\Admin;
  * Create admin notices with the WP Admin. Admin Notices should be created by calling
  * the static ::create method.
  *
- * @package BP\Admin
+ * @package BenchPress\Admin
  */
 class Admin_Notice {
 

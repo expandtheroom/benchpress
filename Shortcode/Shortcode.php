@@ -1,12 +1,12 @@
 <?php
 
-namespace BP\Shortcode;
+namespace BenchPress\Shortcode;
 
 /**
  * A base class for creating shortcodes. This class must be extended for each
  * shortcode.
  *
- * @package BP\Shortcode
+ * @package BenchPress\Shortcode
  */
 abstract class Shortcode {
 

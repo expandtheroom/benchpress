@@ -4,7 +4,7 @@
  * Replaces the login logo by overriding the default CSS.
  */
 add_action( 'login_head', function() {
-    $args = get_theme_support( BP\Theme_Support\Theme_Support::LOGIN_LOGO );
+    $args = get_theme_support( BenchPress\Theme_Support\Theme_Support::LOGIN_LOGO );
 
     $login_logo_url = $args[0]['path'];
     $width = $args[0]['width'];

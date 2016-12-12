@@ -1,7 +1,7 @@
 <?php
 
 add_action('wp_footer', function() {
-    $args = get_theme_support( BP\Theme_Support\Theme_Support::GOOGLE_ANALYTICS );
+    $args = get_theme_support( BenchPress\Theme_Support\Theme_Support::GOOGLE_ANALYTICS );
     $ua = $args[0];
     ?>
     <script>

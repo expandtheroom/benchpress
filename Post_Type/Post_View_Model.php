@@ -1,13 +1,13 @@
 <?php
 
-namespace BP;
+namespace BenchPress\Post_Type;
 
 /**
  * Class Post_View_Model
  *
  * Base class for Post View Models.
  *
- * @package BP
+ * @package BenchPress
  */
 abstract class Post_View_Model {
 

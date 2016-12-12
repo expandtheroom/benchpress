@@ -1,6 +1,6 @@
 <?php
 
-namespace BP\Meta_Box;
+namespace BenchPress\Meta_Box;
 
 class Meta_Box_Priority {
     const LOW = 'low';

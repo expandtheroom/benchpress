@@ -1,6 +1,6 @@
 <?php
 
-namespace BP\Hooks;
+namespace BenchPress\Hooks;
 
 /**
  * Class Base_Filter
@@ -8,7 +8,7 @@ namespace BP\Hooks;
  * Base class for implementing WordPress filters. Sub-classes must implement
  * a callback method which will be called when the filter is triggered.
  *
- * @package BP\Hooks
+ * @package BenchPress\Hooks
  */
 abstract class Base_Filter extends Base_Hook {
 

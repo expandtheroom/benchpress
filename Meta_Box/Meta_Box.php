@@ -1,11 +1,11 @@
 <?php
 
-namespace BP\Meta_Box;
+namespace BenchPress\Meta_Box;
 
 /**
  * A base class to make creating Meta Boxes easier.
  *
- * @package BP\Meta_Box
+ * @package BenchPress\Meta_Box
  */
 abstract class Meta_Box {
 
