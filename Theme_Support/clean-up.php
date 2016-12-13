@@ -3,6 +3,9 @@
 /**
  * Clean up some of WP's default output. This includes output that may compromise security such
  * as the generator tag and version number.
+ *
+ * add_theme_support( BenchPress\Theme_Support\Theme_Support::CLEAN_UP )
+ *
  */
 add_action( 'init', function() {
     // Originally from http://wpengineer.com/1438/wordpress-header/

@@ -1,12 +1,19 @@
 <?php
 
 /**
- * Replaces the login logo by overriding the default CSS.
+ * Adds a custom logo to the WP Admin login screen.
+ *
+ * add_theme_support( BenchPress\Theme_Support\Theme_Support::LOGIN_LOGO, [
+ *     'url' => (string) - The url to your logo image file
+ *     'width' => (int) - The width of the image
+ *     'height' => (int) - The height of the image
+ * ])
+ *
  */
 add_action( 'login_head', function() {
     $args = get_theme_support( BenchPress\Theme_Support\Theme_Support::LOGIN_LOGO );
 
-    $login_logo_url = $args[0]['path'];
+    $login_logo_url = $args[0]['url'];
     $width = $args[0]['width'];
     $height = $args[0]['height'];
     ?>
