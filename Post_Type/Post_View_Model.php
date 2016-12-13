@@ -3,11 +3,12 @@
 namespace BenchPress\Post_Type;
 
 /**
- * Class Post_View_Model
+ * Base class for Post View Models. This class can be extended to create
+ * View Models for your templates and partials. View Models are a great
+ * place to put your data gathering logic for a template instead of scattering
+ * it around the template file.
  *
- * Base class for Post View Models.
- *
- * @package BenchPress
+ * @package BenchPress\Post_Type
  */
 abstract class Post_View_Model {
 
