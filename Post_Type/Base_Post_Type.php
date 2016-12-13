@@ -14,7 +14,9 @@ namespace BenchPress\Post_Type;
 abstract class Base_Post_Type {
 
     /**
-     * Hold reference to all post types that are created.
+     * Hold reference to all post types that are created so that we
+     * can statically access the post type slug for any registered post type.
+     * 
      * @var array
      */
     protected static $post_types = [];
@@ -32,6 +34,10 @@ abstract class Base_Post_Type {
         add_action( 'init', [ $self, '_register_post_type' ] );
     }
 
+    final public function _register_post_type() {
+        $this->register_post_type( $this->get_post_type() );
+    }
+
     /**
      * Returns the post type slug for the class
      * @return string
@@ -45,15 +51,10 @@ abstract class Base_Post_Type {
      */
     protected abstract function get_post_type();
 
-
-    final public function _register_post_type() {
-        $this->register_post_type( $this->get_post_type() );
-    }
-
     /**
-     * You should register your post type in this method.
+     * You should register your post type with WordPress in this method.
      *
      * @param $post_type The post type slug returned by get_post_type()
      */
-    protected abstract function register_post_type( $post_type );
+    protected abstract function register( $post_type );
 }
