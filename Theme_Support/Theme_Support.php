@@ -16,6 +16,10 @@ class Theme_Support extends Base_Action {
         return 'after_setup_theme';
     }
 
+    protected function get_priority() {
+        return 100;
+    }
+
     protected function callback() {
         require_if_theme_supports( static::LOGIN_LOGO, __DIR__ . '/login-logo.php' );
         require_if_theme_supports( static::CLEAN_UP, __DIR__ . '/clean-up.php' );
