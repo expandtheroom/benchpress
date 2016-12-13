@@ -16,7 +16,7 @@ abstract class Base_Post_Type {
     /**
      * Hold reference to all post types that are created so that we
      * can statically access the post type slug for any registered post type.
-     * 
+     *
      * @var array
      */
     protected static $post_types = [];
@@ -35,7 +35,7 @@ abstract class Base_Post_Type {
     }
 
     final public function _register_post_type() {
-        $this->register_post_type( $this->get_post_type() );
+        $this->register( $this->get_post_type() );
     }
 
     /**
