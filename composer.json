@@ -1,0 +1,21 @@
+{
+    "name": "expandtheroom/benchpress",
+    "description": "BenchPress is a WordPress library that helps you develop better WordPress themes. It combines a number of helper",
+    "type": "wordpress-library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ryan Ogden",
+            "email": "ryan@expandtheroom.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "BenchPress\\": "./"
+        },
+        "files": [
+            "functions.php"
+        ]
+    },
+    "require": {}
+}
