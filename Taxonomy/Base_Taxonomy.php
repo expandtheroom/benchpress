@@ -4,8 +4,8 @@ namespace BenchPress\Taxonomy;
 
 abstract class Base_Taxonomy {
     /**
-     * Hold reference to all post types that are created so that we
-     * can statically access the post type slug for any registered post type.
+     * Hold reference to all taxonomies that are created so that we
+     * can statically access the taxonomy slug for any registered taxonomy.
      *
      * @var array
      */
@@ -17,7 +17,7 @@ abstract class Base_Taxonomy {
         $self = new static();
         /**
          * store reference to the instance so we can provide easy access to
-         * the post type slug for the class
+         * the taxonomy slug for the class
          */
         self::$taxonomies[ static::class ] = $self;
 
@@ -29,22 +29,22 @@ abstract class Base_Taxonomy {
     }
 
     /**
-     * Returns the post type slug for the class
+     * Returns the taxonomy name for the class
      * @return string
      */
-    public static function post_type() {
+    public static function taxonomy () {
         return self::$taxonomies[static::class]->get_taxonomy();
     }
 
     /**
-     * Return your post type slug
+     * Return your taxonomy name
      */
     protected abstract function get_taxonomy();
 
     /**
-     * You should register your post type with WordPress in this method.
+     * You should register your taxonomy with WordPress in this method.
      *
-     * @param $post_type The post type slug returned by get_post_type()
+     * @param $taxonomy The taxonomy name returned by get_taxonomy()
      */
     protected abstract function register( $taxonomy );
 }
