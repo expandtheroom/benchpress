@@ -2,7 +2,7 @@
 
 namespace BenchPress\Taxonomy;
 
-class Base_Taxonomy {
+abstract class Base_Taxonomy {
     /**
      * Hold reference to all post types that are created so that we
      * can statically access the post type slug for any registered post type.
