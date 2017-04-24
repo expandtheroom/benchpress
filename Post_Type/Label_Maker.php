@@ -28,7 +28,7 @@ class Label_Maker {
     		'remove_featured_image' => __( 'Remove featured image', 'text_domain' ),
     		'use_featured_image'    => __( 'Use as featured image', 'text_domain' ),
     		'insert_into_item'      => __( 'Insert into', $domain ) . ' ' . strtolower( $singular ),
-    		'uploaded_to_this_item' => __( 'Uploaded to this', $domain ) . ' ' strtolower( $singular ),
+    		'uploaded_to_this_item' => __( 'Uploaded to this', $domain ) . ' ' . strtolower( $singular ),
     		'items_list'            => $plural . ' ' . __( 'list', $domain ),
     		'items_list_navigation' => $plural . ' ' . __( 'list navigation', $domain ),
     		'filter_items_list'     => printf( esc_html__( 'Filter %s list', $domain ) ), $plural,
