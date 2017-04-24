@@ -6,7 +6,7 @@ class Label_Maker {
     public static function create_labels( $singular, $plural, $post_type, $domain = 'default' ) {
         return [
             'name'                  => $plural,
-    		'singular_name'         => $singular
+    		'singular_name'         => $singular,
     		'menu_name'             => $plural,
     		'name_admin_bar'        => $singular,
     		'archives'              => $singular . ' ' . __( 'Archives', $domain ),
