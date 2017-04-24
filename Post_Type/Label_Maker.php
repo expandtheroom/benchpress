@@ -32,6 +32,6 @@ class Label_Maker {
     		'items_list'            => $plural . ' ' . __( 'list', $domain ),
     		'items_list_navigation' => $plural . ' ' . __( 'list navigation', $domain ),
     		'filter_items_list'     => printf( esc_html__( 'Filter %s list', $domain ) ), $plural,
-        ]
+        ];
     }
 }
