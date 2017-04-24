@@ -2,6 +2,15 @@
 
 namespace BenchPress\Taxonomy;
 
+/**
+ * Extend this class to create your taxonomies. The taxonomy name can be accessed
+ * statically for easy access.
+ *
+ * If your taxonomy class was called My_Taxonomy, you would
+ * be able to access the taxonomy name like so: My_Taxonomy::taxonomy()
+ *
+ * @package BenchPress\Taxonomy
+ */
 abstract class Base_Taxonomy {
     /**
      * Hold reference to all taxonomies that are created so that we
