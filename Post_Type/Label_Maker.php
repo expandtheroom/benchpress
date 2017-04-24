@@ -13,7 +13,7 @@ class Label_Maker {
     		'attributes'            => $singular . ' ' . __( 'Attributes', $domain ),
     		'parent_item_colon'     => __( 'Parent', $domain ) . ' ' . $singular,
     		'all_items'             => __( 'All', $domain ) . ' ' . $plural,
-    		'add_new_item'          => __( 'Add New', $domain ) . $singular,
+    		'add_new_item'          => __( 'Add New', $domain ) . ' ' . $singular,
     		'add_new'               => _x( 'Add New', $post_type, $domain ),
     		'new_item'              => __( 'New', $domain ) . ' ' . $singular,
     		'edit_item'             => __( 'Edit', $domain ) . ' ' . $singular,
