@@ -39,7 +39,8 @@ abstract class Base_Post_Type {
             $this->get_post_type(),
             array_merge(
                 [
-                    'labels' => Label_Maker::create_labels( $singular, $plural, $this->get_post_type(), $this->get_text_domain() )
+                    'labels' => Label_Maker::create_labels( $singular, $plural, $this->get_post_type(), $this->get_text_domain() ),
+                    'public' => true
                 ],
                 $this->get_args()
             )
