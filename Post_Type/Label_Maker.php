@@ -63,14 +63,14 @@ class Label_Maker {
             $permalink = get_permalink( $post->ID );
 
     		$view_link = sprintf( ' <a href="%s">%s</a>', esc_url( $permalink ), __( 'View', $domain ) . ' ' . strtolower( $singular ) );
-    		$messages[ $post_type ][1] .= $view_link;
-    		$messages[ $post_type ][6] .= $view_link;
-    		$messages[ $post_type ][9] .= $view_link;
+    		$messages[1] .= $view_link;
+    		$messages[6] .= $view_link;
+    		$messages[9] .= $view_link;
 
     		$preview_permalink = add_query_arg( 'preview', 'true', $permalink );
     		$preview_link = sprintf( ' <a target="_blank" href="%s">%s</a>', esc_url( $preview_permalink ), __( 'Preview', $domain ) . ' ' . strtolower( $singular ) );
-    		$messages[ $post_type ][8]  .= $preview_link;
-    		$messages[ $post_type ][10] .= $preview_link;
+    		$messages[8]  .= $preview_link;
+    		$messages[10] .= $preview_link;
     	}
 
         return $messages;
