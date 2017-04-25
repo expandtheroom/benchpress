@@ -32,6 +32,7 @@ abstract class Base_Post_Type {
         self::$post_types[ static::class ] = $self;
 
         add_action( 'init', [ $self, '_register_post_type' ] );
+        add_filter( 'post_updated_messages', [ $self, '_post_updated_messages_handler' ] );
     }
 
     final public function _register_post_type() {
@@ -45,6 +46,10 @@ abstract class Base_Post_Type {
                 $this->get_args()
             )
         );
+    }
+
+    final public function _post_updated_messages_handler( $messages ) {
+        $messages[ $this->get_post_type() ] = Label_Maker::create_update_messages( $this->get_singular_name(), $this->get_plural_name(), $this->get_post_type(), $this->get_text_domain() );
     }
 
     /**
