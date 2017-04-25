@@ -50,6 +50,8 @@ abstract class Base_Post_Type {
 
     final public function _post_updated_messages_handler( $messages ) {
         $messages[ $this->get_post_type() ] = Label_Maker::create_update_messages( $this->get_singular_name(), $this->get_plural_name(), $this->get_post_type(), $this->get_text_domain() );
+
+        return $messages;
     }
 
     /**
