@@ -35,7 +35,15 @@ abstract class Base_Post_Type {
     }
 
     final public function _register_post_type() {
-        $this->register( $this->get_post_type() );
+        register_post_type(
+            $this->get_post_type(),
+            array_merge(
+                [
+                    'labels' => Label_Maker::create_labels( $singular, $plural, $this->get_post_type(), $this->get_text_domain() )
+                ],
+                $this->get_args()
+            )
+        );
     }
 
     /**
@@ -51,10 +59,14 @@ abstract class Base_Post_Type {
      */
     protected abstract function get_post_type();
 
-    /**
-     * You should register your post type with WordPress in this method.
-     *
-     * @param $post_type The post type slug returned by get_post_type()
-     */
-    protected abstract function register( $post_type );
+    protected abstract function get_singular_name();
+    protected abstract function get_plural_name();
+
+    protected function get_args() {
+        return [];
+    }
+
+    protected function get_text_domain() {
+        return 'default';
+    }
 }
