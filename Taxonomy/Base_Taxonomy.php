@@ -34,7 +34,15 @@ abstract class Base_Taxonomy {
     }
 
     final public function _register_taxonomy() {
-        $this->register( $this->get_taxonomy() );
+        register_taxonomy(
+            $this->get_taxonomy(),
+            array_merge(
+                [
+                    'labels' => Label_Maker::create_labels( $this->get_singular_name(), $this->get_plural_name(), $this->get_text_domain() )
+                ],
+                $this->get_args()
+            )
+        );
     }
 
     /**
@@ -49,11 +57,10 @@ abstract class Base_Taxonomy {
      * Return your taxonomy name
      */
     protected abstract function get_taxonomy();
+    protected abstract function get_singular_name();
+    protected abstract function get_plural_name();
 
-    /**
-     * You should register your taxonomy with WordPress in this method.
-     *
-     * @param $taxonomy The taxonomy name returned by get_taxonomy()
-     */
-    protected abstract function register( $taxonomy );
+    protected function get_args() {
+        return [];
+    }
 }
