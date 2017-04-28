@@ -46,6 +46,21 @@ abstract class Base_Taxonomy {
     }
 
     /**
+     * Return your taxonomy name
+     */
+    protected abstract function get_taxonomy();
+    protected abstract function get_singular_name();
+    protected abstract function get_plural_name();
+
+    protected function get_text_domain() {
+        return 'default';
+    }
+    
+    protected function get_args() {
+        return [];
+    }
+
+    /**
      * Returns the taxonomy name for the class
      * @return string
      */
@@ -53,14 +68,5 @@ abstract class Base_Taxonomy {
         return self::$taxonomies[static::class]->get_taxonomy();
     }
 
-    /**
-     * Return your taxonomy name
-     */
-    protected abstract function get_taxonomy();
-    protected abstract function get_singular_name();
-    protected abstract function get_plural_name();
 
-    protected function get_args() {
-        return [];
-    }
 }
