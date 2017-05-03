@@ -29,4 +29,17 @@ class Label_Maker {
     		'items_list_navigation'      => sprintf( __( '%s list navigation', $domain ), $plural )
     	];
     }
+
+    public static function create_update_messages( $singular, $plural, $domain = 'default' ) {
+
+        return [
+            0 => '',
+            1 => sprintf( __( '%s added.', $domain ), $singular ),
+            2 => sprintf( __( '%s deleted.', $domain ), $singular ),
+            3 => sprintf( __( '%s updated.', $domain ), $singular ),
+            4 => sprintf( __( '%s not added.', $domain ), $singular ),
+            5 => sprintf( __( '%s not updated.', $domain ), $singular ),
+            6 => sprintf( __( '%s deleted.', $domain ), $plural )
+        ];
+    }
 }
