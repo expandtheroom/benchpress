@@ -31,18 +31,29 @@ abstract class Base_Taxonomy {
             $this->get_taxonomy(),
             $this->get_post_types(),
             array_merge(
-                [
-                    'labels' => Label_Maker::create_labels( $this->get_singular_name(), $this->get_plural_name(), $this->get_text_domain() )
-                ],
+                $this->get_default_args(),
                 $this->get_args()
             )
         );
+    }
+
+    private function get_default_args() {
+        return [
+            'labels' => Label_Maker::create_labels( 
+                $this->get_singular_name(), 
+                $this->get_plural_name(), 
+                $this->get_text_domain()
+            )
+        ];
     }
 
     final public function _term_updated_messages_handler( $messages ) {
         return $this->get_updated_messages();
     }
 
+    /**
+     * Returns an array of update message strings to use when the taxonomy is updated.
+     */
     protected function get_updated_messages() {
         return Label_Maker::create_update_messages(
             $this->get_singular_name(),
@@ -51,17 +62,35 @@ abstract class Base_Taxonomy {
         );
     }
     /**
-     * Return your taxonomy name
+     * Returns the taxonomy name.
      */
     protected abstract function get_taxonomy();
+
+    /**
+     * Returns the post types that taxonomy should be applied to.
+     */
     protected abstract function get_post_types();
+
+    /**
+     * Returns the singular name of the taxonomy. The name should be initial caps.
+     */
     protected abstract function get_singular_name();
+
+    /**
+     * Returns the plural name of the taxonomy. The name should be initial caps.
+     */
     protected abstract function get_plural_name();
 
+    /**
+     * Returns the text domain to use for translations for this taxonomy.
+     */
     protected function get_text_domain() {
         return 'default';
     }
 
+    /**
+     * Returns the taxonomy arguments array.
+     */
     protected function get_args() {
         return [];
     }
@@ -73,6 +102,4 @@ abstract class Base_Taxonomy {
     public static function taxonomy () {
         return self::$taxonomies[static::class]->get_taxonomy();
     }
-
-
 }

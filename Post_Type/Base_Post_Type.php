@@ -30,13 +30,13 @@ abstract class Base_Post_Type {
         register_post_type(
             $this->get_post_type(),
             array_merge(
-                $this->get_default_post_type_args(),
+                $this->get_default_args(),
                 $this->get_args()
             )
         );
     }
 
-    private function get_default_post_type_args() {
+    private function get_default_args() {
         return [
             'labels' => Label_Maker::create_labels(
                 $this->get_singular_name(),
@@ -50,14 +50,21 @@ abstract class Base_Post_Type {
     }
 
     final public function _post_updated_messages_handler( $messages ) {
-        $messages[ $this->get_post_type() ] = Label_Maker::create_update_messages(
+        $messages[ $this->get_post_type() ] = $this->get_updated_messages( $messages );
+
+        return $messages;
+    }
+    
+    /**
+     * Returns an array of message strings to use when the post type is updated.
+     */
+    protected function get_updated_messages( $messages ) {
+        return Label_Maker::create_update_messages(
             $this->get_singular_name(),
             $this->get_plural_name(),
             $this->get_post_type(),
             $this->get_text_domain()
         );
-
-        return $messages;
     }
 
     /**
@@ -66,19 +73,17 @@ abstract class Base_Post_Type {
     protected abstract function get_post_type();
 
     /**
-     * Returns the singular name for the post type. This name should be initial caps.
+     * Returns the singular name for the post type. The name should be initial caps.
      */
     protected abstract function get_singular_name();
 
     /**
-     * Returns the plural name for the post type. This name should be initial caps.
+     * Returns the plural name for the post type. The name should be initial caps.
      */
     protected abstract function get_plural_name();
 
     /**
-     * Returns the post type argument array.+
-     *
-     * @return array The post type arguments.
+     * Returns the post type arguments array.
      */
     protected function get_args() {
         return [];
