@@ -13,22 +13,13 @@ namespace BenchPress\Post_Type;
  */
 abstract class Base_Post_Type {
 
-    /**
-     * Hold reference to all post types that are created so that we
-     * can statically access the post type slug for any registered post type.
-     *
-     * @var array
-     */
-    protected static $post_types = [];
+    private static $post_types = [];
 
     public static function init() {
         if ( isset( self::$post_types[ static::class ] ) ) return;
 
         $self = new static();
-        /**
-         * store reference to the instance so we can provide easy access to
-         * the post type slug for the class
-         */
+
         self::$post_types[ static::class ] = $self;
 
         add_action( 'init', [ $self, '_register_post_type' ] );
@@ -39,42 +30,78 @@ abstract class Base_Post_Type {
         register_post_type(
             $this->get_post_type(),
             array_merge(
-                [
-                    'labels' => Label_Maker::create_labels( $this->get_singular_name(), $this->get_plural_name(), $this->get_post_type(), $this->get_text_domain() ),
-                    'public' => true
-                ],
+                $this->get_default_post_type_args(),
                 $this->get_args()
             )
         );
     }
 
+    private function get_default_post_type_args() {
+        return [
+            'labels' => Label_Maker::create_labels(
+                $this->get_singular_name(),
+                $this->get_plural_name(),
+                $this->get_post_type(),
+                $this->get_text_domain()
+            ),
+            'public' => true,
+            'taxonomies' => $this->get_taxonomies()
+        ];
+    }
+
     final public function _post_updated_messages_handler( $messages ) {
-        $messages[ $this->get_post_type() ] = Label_Maker::create_update_messages( $this->get_singular_name(), $this->get_plural_name(), $this->get_post_type(), $this->get_text_domain() );
+        $messages[ $this->get_post_type() ] = Label_Maker::create_update_messages(
+            $this->get_singular_name(),
+            $this->get_plural_name(),
+            $this->get_post_type(),
+            $this->get_text_domain()
+        );
 
         return $messages;
     }
 
     /**
-     * Returns the post type slug for the class
-     * @return string
-     */
-    public static function post_type() {
-        return self::$post_types[static::class]->get_post_type();
-    }
-
-    /**
-     * Return your post type slug
+     * Returns the post type slug.
      */
     protected abstract function get_post_type();
 
+    /**
+     * Returns the singular name for the post type. This name should be initial caps.
+     */
     protected abstract function get_singular_name();
+
+    /**
+     * Returns the plural name for the post type. This name should be initial caps.
+     */
     protected abstract function get_plural_name();
 
+    /**
+     * Returns the post type argument array.+
+     *
+     * @return array The post type arguments.
+     */
     protected function get_args() {
         return [];
     }
 
+    /**
+     * Returns an array of registered taxonomies for this post type.
+     */
+    protected function get_taxonomies() {
+        return [];
+    }
+
+    /**
+     * Returns the text domain to use for translations for this post type.
+     */
     protected function get_text_domain() {
         return 'default';
+    }
+
+    /**
+     * Returns the post type slug for the class.
+     */
+    public static function post_type() {
+        return self::$post_types[static::class]->get_post_type();
     }
 }
