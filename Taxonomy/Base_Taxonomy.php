@@ -12,25 +12,18 @@ namespace BenchPress\Taxonomy;
  * @package BenchPress\Taxonomy
  */
 abstract class Base_Taxonomy {
-    /**
-     * Hold reference to all taxonomies that are created so that we
-     * can statically access the taxonomy slug for any registered taxonomy.
-     *
-     * @var array
-     */
+
     protected static $taxonomies = [];
 
     public static function init() {
         if ( isset( self::$taxonomies[ static::class ] ) ) return;
 
         $self = new static();
-        /**
-         * store reference to the instance so we can provide easy access to
-         * the taxonomy slug for the class
-         */
+
         self::$taxonomies[ static::class ] = $self;
 
         add_action( 'init', [ $self, '_register_taxonomy' ] );
+        add_filter( 'term_updated_messages', [ $self, '_term_updated_messages_handler' ] );
     }
 
     final public function _register_taxonomy() {
@@ -46,6 +39,17 @@ abstract class Base_Taxonomy {
         );
     }
 
+    final public function _term_updated_messages_handler( $messages ) {
+        return $this->get_updated_messages();
+    }
+
+    protected function get_updated_messages() {
+        return Label_Maker::create_update_messages(
+            $this->get_singular_name(),
+            $this->get_plural_name(),
+            $this->get_text_domain()
+        );
+    }
     /**
      * Return your taxonomy name
      */
