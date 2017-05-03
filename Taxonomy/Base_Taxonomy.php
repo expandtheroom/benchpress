@@ -36,6 +36,7 @@ abstract class Base_Taxonomy {
     final public function _register_taxonomy() {
         register_taxonomy(
             $this->get_taxonomy(),
+            $this->get_post_types(),
             array_merge(
                 [
                     'labels' => Label_Maker::create_labels( $this->get_singular_name(), $this->get_plural_name(), $this->get_text_domain() )
@@ -49,13 +50,14 @@ abstract class Base_Taxonomy {
      * Return your taxonomy name
      */
     protected abstract function get_taxonomy();
+    protected abstract function get_post_types();
     protected abstract function get_singular_name();
     protected abstract function get_plural_name();
 
     protected function get_text_domain() {
         return 'default';
     }
-    
+
     protected function get_args() {
         return [];
     }
