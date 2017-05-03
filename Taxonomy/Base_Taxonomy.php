@@ -48,7 +48,9 @@ abstract class Base_Taxonomy {
     }
 
     final public function _term_updated_messages_handler( $messages ) {
-        return $this->get_updated_messages();
+        $messages[ $this->get_taxonomy() ] = $this->get_updated_messages();
+
+        return $messages;
     }
 
     /**
