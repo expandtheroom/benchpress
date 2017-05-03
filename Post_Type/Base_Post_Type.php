@@ -50,7 +50,7 @@ abstract class Base_Post_Type {
     }
 
     final public function _post_updated_messages_handler( $messages ) {
-        $messages[ $this->get_post_type() ] = $this->get_updated_messages( $messages );
+        $messages[ $this->get_post_type() ] = $this->get_updated_messages();
 
         return $messages;
     }
@@ -58,7 +58,7 @@ abstract class Base_Post_Type {
     /**
      * Returns an array of message strings to use when the post type is updated.
      */
-    protected function get_updated_messages( $messages ) {
+    protected function get_updated_messages() {
         return Label_Maker::create_update_messages(
             $this->get_singular_name(),
             $this->get_plural_name(),
