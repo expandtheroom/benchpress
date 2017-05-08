@@ -15,9 +15,9 @@ class Admin_Notice {
     const SUCCESS = 2;
 
     /**
-     * @param $type The type of notice. You can specify one the following types:
+     * @param int $type The type of notice. You can specify one the following types:
      *                Admin_Notice::WARNING, Admin_Notice::ERROR, Admin_Notice::SUCCESS.
-     * @param $message The message to display.
+     * @param string $message The message to display.
      * @param bool $dismissible Whether you want this admin notice to be dismissible.
      */
     public static function create( $type, $message, $dismissible = false ) {
