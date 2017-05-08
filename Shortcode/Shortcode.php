@@ -49,8 +49,6 @@ abstract class Shortcode {
      * It will be passed the same arguments that the callback for `add_shortcode` be passed.
      * The $atts will contain the values provided when the shortcode is used combined with the
      * defaults returned by get_defaults().
-     *
-     * @throws \Exception
      */
     protected abstract function get_content( $atts, $content, $tag );
 }
