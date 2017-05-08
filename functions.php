@@ -17,7 +17,7 @@ if ( ! function_exists( __NAMESPACE__ . '\get_partial' ) ) {
      */
     function get_partial( $partial, $params = [] ) {
         // if it doesn't end in .php, add .php on
-        if ( substr( $partial, -4, 4 ) !== '.php') {
+        if ( substr( $partial, -4, 4 ) !== '.php' ) {
             $partial .= '.php';
         }
 
@@ -28,7 +28,7 @@ if ( ! function_exists( __NAMESPACE__ . '\get_partial' ) ) {
             // If not, use locate template and first search in partials directory, 
             // then fall back to default theme directory.
             $template = locate_template( [ 
-                'partials/' . $partial,
+                apply_filters( 'benchpress/partials_directory', 'partials' ) . '/' . $partial,
                 $partial
             ] );
         }

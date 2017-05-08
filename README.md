@@ -373,6 +373,41 @@ add_theme_support( Theme_Support::REMOVE_ADMIN_MENUS, [
 ```
 
 * `array $menu_slugs` - An array of menu slugs to remove from the admin menu.
+
+## Partials
+
+BenchPress provides two functions for rendering partials within your theme. Similar to WordPress's `get_template_part` function, `\BenchPress\get_partial` and `\BenchPress\the_partial` allow you to render a partial while providing a data array to the partial to render. Similar to how most template engines work, you can pass the data array as the second argument:
+
+In `my-theme/partials/greeter.php`:
+
+```html
+<h1>Hello <?php echo $name; ?></h1>
+``` 
+
+In another theme file:
+
+```php
+\BenchPress\the_partial( 'greeter', [ 'name' => 'Mrs. Smith' ] );
+```
+
+This would output:
+
+```html
+<h1>Hello Mrs. Smith</h1>
+```
+
+If want to return the contents of the partial instead of echoing the contents, use `\BenchPress\get_partial`.
+
+By default, the partial functions will first look in a `partials` directory within your theme followed by looking your theme root. You can also provide an absolute path to the partial which is useful when using the partial functions within a plugin.
+
+If you want to change the search path from `partials` to another directory, you can add the below filter:
+
+```php
+add_filter( 'benchpress/partials_directory', function() {
+    return 'parts';
+} );
+```
+
 ## Other Helpers
 
 ### Admin Notice
@@ -404,32 +439,6 @@ The static `\BenchPress\Admin_Notice\Admin_Notice::create` method accepts the fo
     ```
 - `string $message` - The message to display in the notice.
 - `bool $dismissible` - Whether this notice should be dismissible or not 
-
-### Partials
-
-BenchPress provides two functions for rendering partials within your theme. Similar to WordPress's `get_template_part` function, `\BenchPress\get_partial` and `\BenchPress\the_partial` allow you to render a partial while providing a data array to the partial to render. Similar to how some template engines work, you can pass the data array as the second argument:
-
-In `my-theme/partials/greeter.php`:
-
-```html
-<h1>Hello <?php echo $name; ?></h1>
-``` 
-
-In another theme file:
-
-```php
-\BenchPress\the_partial( 'greeter', [ 'name' => 'Mrs. Smith' ] );
-```
-
-This would output:
-
-```html
-<h1>Hello Mrs. Smith</h1>
-```
-
-If you need to return the contents of the partial instead of echoing the contents, use `\BenchPress\get_partial`.
-
-By default, the partial functions will first look in a `partials` directory within your theme followed by looking your theme root. You can also provide an absolute path which is useful when using the partial functions within a plugin. 
 
 ### User Related Functions
 
