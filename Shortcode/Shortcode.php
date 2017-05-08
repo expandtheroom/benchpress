@@ -24,10 +24,14 @@ abstract class Shortcode {
         \add_shortcode( $this->name, [ $this, '__callback' ] );
     }
 
+    final public function __callback( $atts, $content, $tag ) {
+        return $this->get_content( shortcode_atts( $this->get_defaults(), $atts, $this->name ), $content, $tag );
+    }
+
     /**
-     * @return string The name of the shortcode.
+     * @return string The shortcode name.
      */
-    public abstract function get_name();
+    protected abstract function get_name();
 
     /**
      * Return an array of defaults for the shortcode. These defaults will be merged with the
@@ -35,12 +39,8 @@ abstract class Shortcode {
      *
      * @return array The shortcode defaults as an array of key => value pairs. The
      */
-    public function get_defaults() {
+    protected function get_defaults() {
         return [];
-    }
-
-    final public function __callback( $atts, $content, $tag ) {
-        return $this->get_content( shortcode_atts( $this->get_defaults(), $atts, $this->name ), $content, $tag );
     }
 
     /**
@@ -49,10 +49,6 @@ abstract class Shortcode {
      * It will be passed the same arguments that the callback for `add_shortcode` be passed.
      * The $atts will contain the values provided when the shortcode is used combined with the
      * defaults returned by get_defaults().
-     *
-     * @throws \Exception
      */
-    protected function get_content( $atts, $content, $tag ) {
-        throw new \Exception( 'You must override callback' );
-    }
+    protected abstract function get_content( $atts, $content, $tag );
 }
