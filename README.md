@@ -306,6 +306,73 @@ To initialize your shortcode, add the following to your functions.php file:
 Face_Emoji::init();
 ```
 
+## Theme Support
+
+BenchPress provides quite a few theme support functions to use within your theme.
+
+To use them, you will first need to initialize BenchPress's theme support class:
+
+```php
+use \BenchPress\Theme_Support\Theme_Support;
+
+Theme_Support::init();
+```
+
+**Clean Up**
+
+This theme support function will remove a bunch of the WordPress generated tags that are output within the `<head>` tag of your theme. It also cleans up the output of `body_class()`.
+
+```php
+add_theme_support( Theme_Support::CLEAN_UP );
+```
+
+**Favicon**
+
+This theme support function will add a favicon for your theme.
+
+```php
+add_theme_support( Theme_Support::FAVICON, get_template_directory_uri() . '/favicon.png' );
+```
+
+* `string $favicon_url` - The URL of your favicon file.
+
+**Google Analytics**
+
+This theme support function will add Google Analytics tracking code to your theme.
+
+```php
+add_theme_support( Theme_Support::GOOGLE_ANALYTICS, 'UA-1234567' );
+```
+
+* `string $ua_id` - Your Google Analytics UA identifier.
+
+**Login Logo**
+
+This theme support function will add a custom logo to the WordPress login screen.
+
+```php
+add_theme_support( Theme_Support::LOGIN_LOGO, [
+    'url' => get_template_directory_uri() . '/login_logo.png',
+    'width' => 200,
+    'height' => 50
+] );
+```
+
+* `string $url` - The URL of your custom login logo.
+* `int $width` - The width of your logo.
+* `int $height` - The height of your logo.
+
+**Remove Admin Menus**
+
+This theme support function removes admin menus from the WordPress admin.
+
+```php
+add_theme_support( Theme_Support::REMOVE_ADMIN_MENUS, [
+    'edit-comments.php'
+] );
+```
+
+* `array $menu_slugs` - An array of menu slugs to remove from the admin menu.
 ## Other Helpers
 
 ### Admin Notice
