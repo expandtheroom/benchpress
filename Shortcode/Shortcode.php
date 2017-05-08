@@ -20,8 +20,17 @@ abstract class Shortcode {
 
     public function __construct() {
         $this->name = $this->get_name();
+        $this->register_hooks();
 
         \add_shortcode( $this->name, [ $this, '__callback' ] );
+    }
+
+    /**
+     * This function can be implemented in sub class to register any additional 
+     * hooks that are necessary for this shortcode.
+     */
+    protected function register_hooks() {
+        // empty implementation
     }
 
     final public function __callback( $atts, $content, $tag ) {

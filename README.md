@@ -306,6 +306,39 @@ To initialize your shortcode, add the following to your functions.php file:
 Face_Emoji::init();
 ```
 
+Sometimes you may wish to do a bit more with your shortcode, such as adding a button to the WYSIWYG to insert the shortcode. You can implement `register_hooks` in your shortcode class in order to do so:
+
+```php
+use BenchPress\Shortcode\Shortcode;
+
+class Face_Emoji extends Shortcode {
+
+    protected function get_name() {
+        return 'face_emoji';
+    }
+
+    // These defaults will be merged into `$atts` for you automatically.
+    protected function get_defaults() {
+        return [
+            'mood' => 'happy'
+        ];
+    }
+
+    protected function get_content( $atts, $content, $tag ) {
+        if ( $atts['mood'] == 'happy' ) {
+            return ':)';
+        } else {
+            return ':(';
+        }
+    }
+
+    protected function register_hooks() {
+        // add filters/actions to add shortcode button to WYSIWYG
+    }
+}
+```
+ 
+
 ## Theme Support
 
 BenchPress provides quite a few theme support functions to use within your theme.
