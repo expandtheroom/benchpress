@@ -26,6 +26,9 @@ abstract class Base_Post_Type {
         add_filter( 'post_updated_messages', [ $self, '_post_updated_messages_handler' ] );
     }
 
+    /**
+     * Registers the post type for this class. 
+     */
     final public function _register_post_type() {
         register_post_type(
             $this->get_post_type(),
@@ -36,6 +39,9 @@ abstract class Base_Post_Type {
         );
     }
 
+    /**
+     * Returns the default args for this post type.
+     */
     private function get_default_args() {
         return [
             'labels' => Label_Maker::create_labels(
@@ -49,6 +55,9 @@ abstract class Base_Post_Type {
         ];
     }
 
+    /**
+     * Sets up the updated messages for this post type.
+     */
     final public function _post_updated_messages_handler( $messages ) {
         $messages[ $this->get_post_type() ] = $this->get_updated_messages();
 
