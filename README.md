@@ -13,8 +13,7 @@ While this works for simple themes, eventually it will lead to an unmaintainable
 Instead, you can leverage BenchPress’s `BenchPress\Hooks\Base_Action` and `BenchPress\Hooks\Base_Filter`
 classes to create a single class file for a particular hook you are trying to implement.
 
-For example, if you want to add a smiley face to the title of all your theme's posts, it's as simple as creating
-a class `Add_Smiley_To_Post_Titles` and overriding a few methods.
+For example, if you want to add a smiley face to the title of all your theme's posts, it's as simple as creating a class `Add_Smiley_To_Post_Titles` and overriding a few methods.
 
 ```php
 use BenchPress\Hooks\Base_Filter;
@@ -44,23 +43,22 @@ use BenchPress\Hooks\Base_Filter;
 
 class Add_Smiley_To_Book_Titles extends Base_Filter {
 
-	protected function get_filter() {
-		return ‘the_title’;
-	}
+    protected function get_filter() {
+       return ‘the_title’;
+    }
 
-	protected function should_run( $title, $post_id ) {
+    protected function should_run( $title, $post_id ) {
         // only run this hook if the post type is book
-		return get_post_type( $post_id ) == ‘book’;
-	}
+        return get_post_type( $post_id ) == ‘book’;
+    }
 
-	protected function get_arg_count() {
-		return 2;
-	}
+    protected function get_arg_count() {
+        return 2;
+    }
 
-	protected function callback( $title, $post_id ) {
-		return $title . ‘ :)’;
-	}
-
+    protected function callback( $title, $post_id ) {
+        return $title . ‘ :)’;
+    }
 }
 ```
 
@@ -95,6 +93,12 @@ class Update_Book_Archive_Query extends Base_Action {
         $query->set( 'posts_per_page', 30 );
     }
 }
+```
+
+If you need to remove an action or filter, you can call the inherited static `remove` method:
+
+```php
+Update_Book_Archive_Query::remove();
 ```
 
 ## Post Types

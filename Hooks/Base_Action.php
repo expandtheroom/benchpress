@@ -21,14 +21,14 @@ abstract class Base_Action extends Base_Hook {
         );
     }
 
-    final public static function remove_action() {
+    final public static function remove() {
         $class = get_called_class();
 
         if ( ! isset( static::$instances[ $class ] ) ) return;
 
         $instance = static::$instances[ $class ];
 
-        \remove_action( $instance->get_action(), [ $instance , '__callback' ], $instance->get_priority() );
+        remove_action( $instance->get_action(), [ $instance , '__callback' ], $instance->get_priority() );
     }
 
     /**
