@@ -34,4 +34,45 @@ class Label_Maker {
     		'filter_items_list'     => sprintf( esc_html__( 'Filter %s list', $domain ), $plural ),
         ];
     }
+
+    public static function create_update_messages( $singular, $plural, $post_type, $domain = 'default' ) {
+        $post_type_object = get_post_type_object( $post_type );
+        $post = get_post();
+
+        $messages = [
+            0  => '', // Unused. Messages start at index 1.
+    		1  => sprintf( __( '%s updated.', $domain ), $singular),
+    		2  => __( 'Custom field updated.', $domain ),
+    		3  => __( 'Custom field deleted.', $domain ),
+    		4  => sprintf( __( '%s updated.', $domain ), $singular),
+    		/* translators: %s: date and time of the revision */
+    		5  => isset( $_GET['revision'] ) ? sprintf( __( '%s restored to revision from %s', $domain ), $singular, wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+    		6  => sprintf( __( '%s published.', $domain ), $singular ),
+    		7  => sprintf( __( '%s saved.', $domain ), $singular ),
+    		8  => sprintf( __( '%s submitted.', $domain ), $singular ),
+    		9  => sprintf(
+    			__( '%s scheduled for: <strong>%1$s</strong>.', $domain ),
+                $singular,
+    			// translators: Publish box date format, see http://php.net/date
+    			date_i18n( __( 'M j, Y @ G:i', $domain ), strtotime( $post->post_date ) )
+    		),
+    		10 => sprintf( __( '%s draft updated.', $domain ), $singular )
+        ];
+
+        if ( $post_type_object->publicly_queryable ) {
+            $permalink = get_permalink( $post->ID );
+
+    		$view_link = sprintf( ' <a href="%s">%s</a>', esc_url( $permalink ), __( 'View', $domain ) . ' ' . strtolower( $singular ) );
+    		$messages[1] .= $view_link;
+    		$messages[6] .= $view_link;
+    		$messages[9] .= $view_link;
+
+    		$preview_permalink = add_query_arg( 'preview', 'true', $permalink );
+    		$preview_link = sprintf( ' <a target="_blank" href="%s">%s</a>', esc_url( $preview_permalink ), __( 'Preview', $domain ) . ' ' . strtolower( $singular ) );
+    		$messages[8]  .= $preview_link;
+    		$messages[10] .= $preview_link;
+    	}
+
+        return $messages;
+    }
 }

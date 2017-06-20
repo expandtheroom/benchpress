@@ -21,14 +21,14 @@ abstract class Base_Filter extends Base_Hook {
         );
     }
 
-    final public static function remove_filter() {
+    final public static function remove() {
         $class = get_called_class();
 
         if ( ! isset( static::$instances[ $class ] ) ) return;
 
         $instance = static::$instances[ $class ];
 
-        \remove_filter( $instance->get_filter(), [ $instance , '__callback' ], $instance->get_priority() );
+        remove_filter( $instance->get_filter(), [ $instance , '__callback' ], $instance->get_priority() );
     }
 
     /**

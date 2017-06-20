@@ -12,29 +12,91 @@ namespace BenchPress\Taxonomy;
  * @package BenchPress\Taxonomy
  */
 abstract class Base_Taxonomy {
-    /**
-     * Hold reference to all taxonomies that are created so that we
-     * can statically access the taxonomy slug for any registered taxonomy.
-     *
-     * @var array
-     */
+
     protected static $taxonomies = [];
 
     public static function init() {
-        if ( isset( self::$taxonomies[ static::class ] ) ) return;
+        $class = get_called_class();
+
+        if ( isset( self::$taxonomies[ $class ] ) ) return;
 
         $self = new static();
-        /**
-         * store reference to the instance so we can provide easy access to
-         * the taxonomy slug for the class
-         */
-        self::$taxonomies[ static::class ] = $self;
+
+        self::$taxonomies[ $class ] = $self;
 
         add_action( 'init', [ $self, '_register_taxonomy' ] );
+        add_filter( 'term_updated_messages', [ $self, '_term_updated_messages_handler' ] );
     }
 
     final public function _register_taxonomy() {
-        $this->register( $this->get_taxonomy() );
+        register_taxonomy(
+            $this->get_taxonomy(),
+            $this->get_post_types(),
+            array_merge(
+                $this->get_default_args(),
+                $this->get_args()
+            )
+        );
+    }
+
+    private function get_default_args() {
+        return [
+            'labels' => Label_Maker::create_labels( 
+                $this->get_singular_name(), 
+                $this->get_plural_name(), 
+                $this->get_text_domain()
+            )
+        ];
+    }
+
+    final public function _term_updated_messages_handler( $messages ) {
+        $messages[ $this->get_taxonomy() ] = $this->get_updated_messages();
+
+        return $messages;
+    }
+
+    /**
+     * Returns an array of update message strings to use when the taxonomy is updated.
+     */
+    protected function get_updated_messages() {
+        return Label_Maker::create_update_messages(
+            $this->get_singular_name(),
+            $this->get_plural_name(),
+            $this->get_text_domain()
+        );
+    }
+    /**
+     * Returns the taxonomy name.
+     */
+    protected abstract function get_taxonomy();
+
+    /**
+     * Returns the post types that taxonomy should be applied to.
+     */
+    protected abstract function get_post_types();
+
+    /**
+     * Returns the singular name of the taxonomy. The name should be initial caps.
+     */
+    protected abstract function get_singular_name();
+
+    /**
+     * Returns the plural name of the taxonomy. The name should be initial caps.
+     */
+    protected abstract function get_plural_name();
+
+    /**
+     * Returns the text domain to use for translations for this taxonomy.
+     */
+    protected function get_text_domain() {
+        return 'default';
+    }
+
+    /**
+     * Returns the taxonomy arguments array.
+     */
+    protected function get_args() {
+        return [];
     }
 
     /**
@@ -42,18 +104,8 @@ abstract class Base_Taxonomy {
      * @return string
      */
     public static function taxonomy () {
-        return self::$taxonomies[static::class]->get_taxonomy();
+        $class = get_called_class();
+
+        return self::$taxonomies[ $class ]->get_taxonomy();
     }
-
-    /**
-     * Return your taxonomy name
-     */
-    protected abstract function get_taxonomy();
-
-    /**
-     * You should register your taxonomy with WordPress in this method.
-     *
-     * @param $taxonomy The taxonomy name returned by get_taxonomy()
-     */
-    protected abstract function register( $taxonomy );
 }

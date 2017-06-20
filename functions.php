@@ -15,29 +15,29 @@ if ( ! function_exists( __NAMESPACE__ . '\get_partial' ) ) {
      *
      * @return string
      */
-    function get_partial($partial, $params = [])
-    {
-        // if it's not absolutely pathed, add on /partials/
-        if ( substr( $partial, 0, 1 ) !== '/') {
-            $partial = '/partials/' . $partial;
-        }
-
+    function get_partial( $partial, $params = [] ) {
         // if it doesn't end in .php, add .php on
-        if ( substr( $partial, -4, 4 ) !== '.php') {
+        if ( substr( $partial, -4, 4 ) !== '.php' ) {
             $partial .= '.php';
         }
 
-        // extract any vars passed to function so partial has access to them
+        if ( file_exists( $partial ) ) {
+            // First check if the file exists. This allows absolute paths to be provided.
+            $template = $partial;
+        } else {
+            // If not, use locate template and first search in partials directory, 
+            // then fall back to default theme directory.
+            $template = locate_template( [ 
+                apply_filters( 'benchpress/partials_directory', 'partials' ) . '/' . $partial,
+                $partial
+            ] );
+        }
+
+        // if we don't find a template, throw an error
+        if ( empty( $template ) ) throw new \Error( 'The partial ' . $partial . ' was not found' );
+
+         // extract any vars passed to function so partial has access to them
         extract( $params );
-
-        /**
-         * We use locate template to find the partial so child themes can override
-         * the partials when necessary.
-         */
-        $template = locate_template( $partial );
-
-        // if we don't find a template, return an empty string
-        if ( empty( $template ) ) return '';
 
         // start buffer to capture partial output
         ob_start();
