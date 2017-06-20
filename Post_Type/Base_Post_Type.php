@@ -16,11 +16,13 @@ abstract class Base_Post_Type {
     private static $post_types = [];
 
     public static function init() {
-        if ( isset( self::$post_types[ static::class ] ) ) return;
+        $class = get_called_class();
+
+        if ( isset( self::$post_types[ $class ] ) ) return;
 
         $self = new static();
 
-        self::$post_types[ static::class ] = $self;
+        self::$post_types[ $class ] = $self;
 
         add_action( 'init', [ $self, '_register_post_type' ] );
         add_filter( 'post_updated_messages', [ $self, '_post_updated_messages_handler' ] );
@@ -116,6 +118,8 @@ abstract class Base_Post_Type {
      * Returns the post type slug for the class.
      */
     public static function post_type() {
-        return self::$post_types[static::class]->get_post_type();
+        $class = get_called_class();
+
+        return self::$post_types[ $class ]->get_post_type();
     }
 }

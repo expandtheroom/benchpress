@@ -16,11 +16,13 @@ abstract class Base_Taxonomy {
     protected static $taxonomies = [];
 
     public static function init() {
-        if ( isset( self::$taxonomies[ static::class ] ) ) return;
+        $class = get_called_class();
+
+        if ( isset( self::$taxonomies[ $class ] ) ) return;
 
         $self = new static();
 
-        self::$taxonomies[ static::class ] = $self;
+        self::$taxonomies[ $class ] = $self;
 
         add_action( 'init', [ $self, '_register_taxonomy' ] );
         add_filter( 'term_updated_messages', [ $self, '_term_updated_messages_handler' ] );
@@ -102,6 +104,8 @@ abstract class Base_Taxonomy {
      * @return string
      */
     public static function taxonomy () {
-        return self::$taxonomies[static::class]->get_taxonomy();
+        $class = get_called_class();
+
+        return self::$taxonomies[ $class ]->get_taxonomy();
     }
 }
