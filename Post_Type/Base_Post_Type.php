@@ -34,7 +34,7 @@ abstract class Base_Post_Type {
     final public function _register_post_type() {
         register_post_type(
             $this->get_post_type(),
-            array_merge(
+            array_replace_recursive(
                 $this->get_default_args(),
                 $this->get_args()
             )
