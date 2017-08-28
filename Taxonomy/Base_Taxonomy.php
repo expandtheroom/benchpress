@@ -32,7 +32,7 @@ abstract class Base_Taxonomy {
         register_taxonomy(
             $this->get_taxonomy(),
             $this->get_post_types(),
-            array_merge(
+            array_replace_recursive(
                 $this->get_default_args(),
                 $this->get_args()
             )
