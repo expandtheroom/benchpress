@@ -19,7 +19,7 @@ class Label_Maker {
     		'edit_item'             => __( 'Edit', $domain ) . ' ' . $singular,
     		'update_item'           => __( 'Update', $domain ) . ' ' . $singular,
     		'view_item'             => __( 'View', $domain ) . ' ' . $singular,
-    		'view_items'            => __( 'View', $domain ) . ' ' . $plurarl,
+    		'view_items'            => __( 'View', $domain ) . ' ' . $plural,
     		'search_items'          => __( 'Search', $domain ) . ' ' . $plural,
     		'not_found'             => __( 'Not found', $domain ),
     		'not_found_in_trash'    => __( 'Not found in Trash', $domain ),
