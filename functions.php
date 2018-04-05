@@ -25,10 +25,12 @@ if ( ! function_exists( __NAMESPACE__ . '\get_partial' ) ) {
             // First check if the file exists. This allows absolute paths to be provided.
             $template = $partial;
         } else {
-            // If not, use locate template and first search in partials directory, 
+            // If not, use locate template and first search in partials directory,
             // then fall back to default theme directory.
-            $template = locate_template( [ 
+            $partial_path_info = pathinfo( $partial );
+            $template = locate_template( [
                 apply_filters( 'benchpress/partials_directory', 'partials' ) . '/' . $partial,
+                apply_filters( 'benchpress/partials_directory', 'partials' ) . '/' . $partial_path_info['dirname'] . '/' . $partial_path_info['filename'] . '/' . $partial_path_info['basename'],
                 $partial
             ] );
         }
