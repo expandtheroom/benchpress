@@ -1,7 +1,7 @@
 # BenchPress
 
-BenchPress is a WordPress library that helps you develop better WordPress themes. 
-It combines a number of helper functions and patterns that will help you increase 
+BenchPress is a WordPress library that helps you develop better WordPress themes.
+It combines a number of helper functions and patterns that will help you increase
 your WordPress strength!
 
 ## Hooks
@@ -27,7 +27,7 @@ class Add_Smiley_To_Post_Titles extends Base_Filter {
 	protected function get_arg_count() {
 		return 2;
 	}
-	
+
 	protected function callback( $title, $post_id ) {
 		return $title . ' :)';
 	}
@@ -274,6 +274,75 @@ class Genre extends Base_Taxonomy {
 
 By extending `Base_Taxonomy`, all of the taxonomy labels and updated messages will be set for you automatically based on the singular and plural name you provided.
 
+## Models
+
+Benchpress provides a model class to simplify accessing and updating post properties. `\BenchPress\Model\Base_Model` can be used as is to provide a simple and uniform way to access post properties or it can be extended to provide custom getters, field aliases, and defaults.
+
+All of the following example model properties and methods are optional:
+
+```php
+use BenchPress\Model\Base_Model;
+
+class Event_Model extends Base_Model {
+    protected $aliases = [
+        'subtitle' => 'field_5ad0b74498fad',
+        'start' => 'field_5ad0b78798fae',
+        'end' => 'field_5ae730079bb55',
+        'name' => 'field_5ae730079bb56'
+    ];
+
+    protected $defaults = [
+        'subtitle' => 'Upcoming Event'
+    ];
+
+    protected $public = ['ID', 'subtitle', 'date'];
+
+    // define custom getters
+    public function date_range(){
+        return $this->start(). ' until '. $this->end();
+    }
+
+    // override getter
+    public function name(){
+        // access property directly
+        $name = $this->get_value('name');
+        return strtoupper($name);
+    }
+}
+```
+
+Model instances can be used like this:
+
+```php
+// create model (model can accept an ID or post object)
+$event = new Event_Model($ID);
+
+// get post property
+$id = $event->ID();
+
+// get ACF field
+$custom_field = $event->some_custom_field();
+
+// get field by alias
+$subtitle = $event->subtitle();
+
+// get by custom getter
+$full_date = $event->date_range();
+
+// get an array of fileds
+$fields = $event->get(['ID', 'start', 'end']); // ~> ['ID' => 123, 'start' => ...]
+
+// get public fields
+$public = $event->get_public(); // ~> ['ID' => 123, 'subtitle' => ...]
+
+// set post field
+$event->set('post_title', 'new title');
+
+// set custom field
+$event->set('start', '1970-01-01');
+```
+
+
 ## Shortcodes
 
 BenchPress provides a convenient way to create shortcodes by extending the `\BenchPress\Shortcode\Shortcode` class.
@@ -341,7 +410,7 @@ class Face_Emoji extends Shortcode {
     }
 }
 ```
- 
+
 
 ## Theme Support
 
@@ -419,7 +488,7 @@ In `my-theme/partials/greeter.php`:
 
 ```html
 <h1>Hello <?php echo $name; ?></h1>
-``` 
+```
 
 In another theme file:
 
@@ -457,7 +526,7 @@ use \BenchPress\Admin\Admin_Notice;
 Admin_Notice::create( Admin_Notice::Success, 'Your book is safe', true );
 ```
 
-You would typically invoke this function within the `admin_notices` action. 
+You would typically invoke this function within the `admin_notices` action.
 
 ```php
 add_action( 'admin_notices', function() {
@@ -475,7 +544,7 @@ The static `\BenchPress\Admin_Notice\Admin_Notice::create` method accepts the fo
     Admin_Notice::Error;
     ```
 - `string $message` - The message to display in the notice.
-- `bool $dismissible` - Whether this notice should be dismissible or not 
+- `bool $dismissible` - Whether this notice should be dismissible or not
 
 ### User Related Functions
 
