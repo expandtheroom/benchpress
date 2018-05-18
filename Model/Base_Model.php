@@ -130,7 +130,7 @@ class Base_Model {
     }
 
     /**
-     * Checks if the property is aliased and returned the non-aliased value if it is
+     * Checks if the property is aliased and returns the non-aliased value if it is
      * @param  string $key potentially aliased key
      * @return string
      */
