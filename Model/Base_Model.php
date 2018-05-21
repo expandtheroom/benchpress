@@ -35,8 +35,7 @@ class Base_Model {
      * Fields that should be returned from call to `get_public`
      * @var array
      */
-    protected $public = [
-    ];
+    protected $public = [];
 
     /**
      * Base_Model constructor.

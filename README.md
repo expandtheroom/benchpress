@@ -329,7 +329,7 @@ $subtitle = $event->subtitle();
 // get by custom getter
 $full_date = $event->date_range();
 
-// get an array of fileds
+// get an array of fields
 $fields = $event->get(['ID', 'start', 'end']); // ~> ['ID' => 123, 'start' => ...]
 
 // get public fields
