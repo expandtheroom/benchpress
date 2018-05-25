@@ -37,24 +37,6 @@ abstract class Base_Hook {
         return 10;
     }
 
-    /**
-     * Decides if the hook callback should be invoked. Generally checks if a certain
-     * condition is met. i.e. `return is_post_type_archive()` if you only want the
-     * callback to execute if a post type archive is being viewed.
-     *
-     * @return bool Whether the hook callback should be invoked.
-     */
-    protected function should_run() {
-        return true;
-    }
-
-    /**
-     * The callback for the registered hook. The arguments vary depending on the particular hook.
-     * @throws \Error
-     */
-    protected function callback() {
-        throw new \Error( 'You must override callback.' );
-    }
 
     /**
      * This function is used as the hook callback so we can determine if the actual
@@ -62,11 +44,14 @@ abstract class Base_Hook {
      */
     final public function __callback() {
         // check if the user supplied callback should be invoked
-        if ( call_user_func_array( [ $this, 'should_run' ], func_get_args() ) ) {
+        if ( !method_exists( $this, 'should_run') || call_user_func_array( [ $this, 'should_run' ], func_get_args() ) ) {
             /**
              * Return a call to callback which is necessary for filters. There is no harm in returning
              * the value for actions.
              */
+            if( !method_exists( $this, 'callback' ) )
+                throw new \Exception( 'Required method "callback is not defined.' );
+
             return call_user_func_array( [ $this, 'callback' ], func_get_args() );
         } else {
             /**
