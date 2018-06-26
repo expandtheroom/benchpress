@@ -57,7 +57,7 @@ class Base_Model {
      */
     public function get($keys = []){
         $data = [];
-        foreach ( $keys as $key ) { $data[$key] = $this->get_value($key); }
+        foreach ( $keys as $key ) { $data[$key] = $this->{$key}(); }
         return $data;
     }
 
