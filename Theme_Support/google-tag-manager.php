@@ -1,13 +1,10 @@
-<!-- Global site tag (gtag.js) - Google Analytics -->
-
-
 <?php
 /**
  * Adds Google Tag Manager tracking script to the website.
  *
- * add_theme_support( BenchPress\Theme_Support\Theme_Support::GOOGLE_ANALYTICS, 'UA-XXXXXXX' )
+ * add_theme_support( BenchPress\Theme_Support\Theme_Support::GOOGLE_TAG_MANAGER, 'UA-XXXXXXX' )
  *
- * @var string - Your Google Analytics UA id.
+ * @var string - Your Google Tag Manager UA id.
  */
 add_action( 'wp_footer', function() {
     $args = get_theme_support( BenchPress\Theme_Support\Theme_Support::GOOGLE_TAG_MANAGER );
