@@ -383,6 +383,16 @@ add_theme_support( Theme_Support::GOOGLE_ANALYTICS, 'UA-1234567' );
 
 * `string $ua_id` - Your Google Analytics UA identifier.
 
+**Google Tag Manager**
+
+This theme support function will add Google Tag Manager tracking code to your theme.
+
+```php
+add_theme_support( Theme_Support::GOOGLE_TAG_MANAGER, 'UA-1234567' );
+```
+
+* `string $ua_id` - Your Google Tag Manager UA identifier.
+
 **Login Logo**
 
 This theme support function will add a custom logo to the WordPress login screen.
