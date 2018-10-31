@@ -10,6 +10,7 @@ class Theme_Support extends Base_Action {
     const CLEAN_UP = 'benchpress/clean_up';
     const REMOVE_ADMIN_MENUS = 'benchpress/remove_admin_menus';
     const GOOGLE_ANALYTICS = 'benchpress/google_analytics';
+    const GOOGLE_TAG_MANAGER = 'benchpress/google_tag_manager';
     const FAVICON = 'benchpress/favicon';
 
     protected function get_action() {
@@ -25,6 +26,7 @@ class Theme_Support extends Base_Action {
         require_if_theme_supports( static::CLEAN_UP, __DIR__ . '/clean-up.php' );
         require_if_theme_supports( static::REMOVE_ADMIN_MENUS, __DIR__ . '/remove-admin-menus.php' );
         require_if_theme_supports( static::GOOGLE_ANALYTICS, __DIR__ . '/google-analytics.php' );
+        require_if_theme_supports( static::GOOGLE_TAG_MANAGER, __DIR__ . '/google-tag-manager.php' );
         require_if_theme_supports( static::FAVICON, __DIR__ . '/favicon.php' );
     }
 }
