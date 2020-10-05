@@ -445,7 +445,7 @@ add_filter( 'benchpress/partials_directory', function() {
 } );
 ```
 
-**Passing data to a partial with a filter**
+### Passing data to a partial with a filter
 If you want to pass arguments or filter the existing arguments that are passed to a partial, you can use the following filter:
 
 ```php
