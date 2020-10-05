@@ -445,6 +445,17 @@ add_filter( 'benchpress/partials_directory', function() {
 } );
 ```
 
+**Passing data to a partial with a filter**
+If you want to pass arguments or filter the existing arguments that are passed to a partial, you can use the following filter:
+
+```php
+  add_filter( 'benchpress/partial/greeter', function() {
+    return [ 'name' => 'Mrs. Smith' ] ];
+  } );
+```
+
+In the above example `greeter` can be substitued for the partial name that you are wishing to pass data to. So any partial can be targeterd with the filter `benchpress/partial/{partial_name}` 
+
 ## Other Helpers
 
 ### Admin Notice

@@ -38,8 +38,8 @@ if ( ! function_exists( __NAMESPACE__ . '\get_partial' ) ) {
         // if we don't find a template, throw an error
         if ( empty( $template ) ) throw new \Error( 'The partial ' . $partial . ' was not found' );
 
-         // extract any vars passed to function so partial has access to them
-        extract( $params );
+        // extract any vars passed to function so partial has access to them
+        extract(apply_filters( "benchpress/partial/{$partial_path_info['filename']}", $params) );
 
         // start buffer to capture partial output
         ob_start();
