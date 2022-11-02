@@ -24,6 +24,11 @@ abstract class Base_Post_Type {
 
         self::$post_types[ $class ] = $self;
 
+        // Store a list of theme declared post types in a WP option
+        $theme_post_types = get_option('theme_post_types', []);
+        $theme_post_types[] = self::post_type();
+        update_option('theme_post_types', array_unique($theme_post_types), false);
+
         add_action( 'init', [ $self, '_register_post_type' ] );
         add_filter( 'post_updated_messages', [ $self, '_post_updated_messages_handler' ] );
     }

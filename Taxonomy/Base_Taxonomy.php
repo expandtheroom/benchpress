@@ -24,6 +24,11 @@ abstract class Base_Taxonomy {
 
         self::$taxonomies[ $class ] = $self;
 
+        // Store a list of theme declared taxonomies in a WP option
+        $theme_taxonomies = get_option('theme_taxonomies', []);
+        $theme_taxonomies[] = self::taxonomy();
+        update_option('theme_taxonomies', array_unique($theme_taxonomies), false);
+
         add_action( 'init', [ $self, '_register_taxonomy' ] );
         add_filter( 'term_updated_messages', [ $self, '_term_updated_messages_handler' ] );
     }
