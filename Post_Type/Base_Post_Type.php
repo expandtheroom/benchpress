@@ -24,10 +24,10 @@ abstract class Base_Post_Type {
 
         self::$post_types[ $class ] = $self;
 
-        // Store a list of theme declared post types in a WP option
-        $theme_post_types = get_option('theme_post_types', []);
-        $theme_post_types[] = self::post_type();
-        update_option('theme_post_types', array_unique($theme_post_types), false);
+        // Store a list of post types created by Benchpress
+        $benchpress_post_types = get_option('benchpress_post_types', []);
+        $benchpress_post_types[] = self::post_type();
+        update_option('benchpress_post_types', array_unique($benchpress_post_types), false);
 
         add_action( 'init', [ $self, '_register_post_type' ] );
         add_filter( 'post_updated_messages', [ $self, '_post_updated_messages_handler' ] );
