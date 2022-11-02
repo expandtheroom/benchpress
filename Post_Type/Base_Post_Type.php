@@ -24,11 +24,6 @@ abstract class Base_Post_Type {
 
         self::$post_types[ $class ] = $self;
 
-        // Store a list of post types created by Benchpress
-        $benchpress_post_types = get_option('benchpress_post_types', []);
-        $benchpress_post_types[] = self::post_type();
-        update_option('benchpress_post_types', array_unique($benchpress_post_types), false);
-
         add_action( 'init', [ $self, '_register_post_type' ] );
         add_filter( 'post_updated_messages', [ $self, '_post_updated_messages_handler' ] );
     }
@@ -58,7 +53,8 @@ abstract class Base_Post_Type {
                 $this->get_text_domain()
             ),
             'public' => true,
-            'taxonomies' => $this->get_taxonomies()
+            'taxonomies' => $this->get_taxonomies(),
+            'bencpress_post_type' => true,
         ];
     }
 

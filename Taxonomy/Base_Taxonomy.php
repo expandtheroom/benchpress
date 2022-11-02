@@ -24,11 +24,6 @@ abstract class Base_Taxonomy {
 
         self::$taxonomies[ $class ] = $self;
 
-        // Store a list of taxonomies created by Benchpress
-        $benchpress_taxonomies = get_option('benchpress_taxonomies', []);
-        $benchpress_taxonomies[] = self::taxonomy();
-        update_option('benchpress_taxonomies', array_unique($benchpress_taxonomies), false);
-
         add_action( 'init', [ $self, '_register_taxonomy' ] );
         add_filter( 'term_updated_messages', [ $self, '_term_updated_messages_handler' ] );
     }
@@ -50,7 +45,8 @@ abstract class Base_Taxonomy {
                 $this->get_singular_name(), 
                 $this->get_plural_name(), 
                 $this->get_text_domain()
-            )
+            ),
+            'benchpress_taxonomy' => true,
         ];
     }
 
