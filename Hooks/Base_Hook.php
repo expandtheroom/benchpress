@@ -57,7 +57,8 @@ abstract class Base_Hook {
             /**
              * If we should not invoke callback, return the first function arg which is necessary for filters.
              */
-            return func_get_arg(0);
+            $func_args = func_get_args();
+            return count($func_args) ? func_get_arg(0) : '';
         }
     }
 }
