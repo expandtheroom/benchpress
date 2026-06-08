@@ -10,7 +10,7 @@ abstract class Base_Hook {
      * Initializes the hook
      */
     public static function init() {
-        $called_class = get_called_class();
+        $called_class = static::class;
 
         if ( isset( static::$instances[ $called_class ] ) ) return;
 
@@ -18,10 +18,10 @@ abstract class Base_Hook {
 
         $instance = static::$instances[ $called_class ];
 
-        $instance->add_hook( $instance );
+        $instance->add_hook();
     }
 
-    protected abstract function add_hook( Base_Hook $instance );
+    abstract protected function add_hook();
 
     /**
      * @return int The number of arguments the hook callback accepts. Defaults to 1.
@@ -42,23 +42,22 @@ abstract class Base_Hook {
      * This function is used as the hook callback so we can determine if the actual
      * developer supplied callback should be invoked (depending on the return value of $this->should_run()).
      */
-    final public function __callback() {
+    final public function __callback( ...$args ) {
         // check if the user supplied callback should be invoked
-        if ( !method_exists( $this, 'should_run') || call_user_func_array( [ $this, 'should_run' ], func_get_args() ) ) {
+        if ( ! method_exists( $this, 'should_run' ) || $this->should_run( ...$args ) ) {
             /**
              * Return a call to callback which is necessary for filters. There is no harm in returning
              * the value for actions.
              */
-            if( !method_exists( $this, 'callback' ) )
-                throw new \Exception( 'Required method "callback is not defined.' );
+            if ( ! method_exists( $this, 'callback' ) )
+                throw new \Exception( 'Required method "callback" is not defined.' );
 
-            return call_user_func_array( [ $this, 'callback' ], func_get_args() );
+            return $this->callback( ...$args );
         } else {
             /**
              * If we should not invoke callback, return the first function arg which is necessary for filters.
              */
-            $func_args = func_get_args();
-            return count($func_args) ? $func_args[0] : '';
+            return count( $args ) ? $args[0] : '';
         }
     }
 }

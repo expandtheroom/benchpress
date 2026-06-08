@@ -16,7 +16,7 @@ abstract class Base_Taxonomy {
     protected static $taxonomies = [];
 
     public static function init() {
-        $class = get_called_class();
+        $class = static::class;
 
         if ( isset( self::$taxonomies[ $class ] ) ) return;
 
@@ -68,22 +68,22 @@ abstract class Base_Taxonomy {
     /**
      * Returns the taxonomy name.
      */
-    protected abstract function get_taxonomy();
+    abstract protected function get_taxonomy();
 
     /**
      * Returns the post types that taxonomy should be applied to.
      */
-    protected abstract function get_post_types();
+    abstract protected function get_post_types();
 
     /**
      * Returns the singular name of the taxonomy. The name should be initial caps.
      */
-    protected abstract function get_singular_name();
+    abstract protected function get_singular_name();
 
     /**
      * Returns the plural name of the taxonomy. The name should be initial caps.
      */
-    protected abstract function get_plural_name();
+    abstract protected function get_plural_name();
 
     /**
      * Returns the text domain to use for translations for this taxonomy.
@@ -104,7 +104,7 @@ abstract class Base_Taxonomy {
      * @return string
      */
     public static function taxonomy () {
-        $class = get_called_class();
+        $class = static::class;
 
         return self::$taxonomies[ $class ]->get_taxonomy();
     }

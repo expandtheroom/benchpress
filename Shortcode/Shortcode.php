@@ -40,7 +40,7 @@ abstract class Shortcode {
     /**
      * @return string The shortcode name.
      */
-    protected abstract function get_name();
+    abstract protected function get_name();
 
     /**
      * Return an array of defaults for the shortcode. These defaults will be merged with the
@@ -59,5 +59,5 @@ abstract class Shortcode {
      * The $atts will contain the values provided when the shortcode is used combined with the
      * defaults returned by get_defaults().
      */
-    protected abstract function get_content( $atts, $content, $tag );
+    abstract protected function get_content( $atts, $content, $tag );
 }

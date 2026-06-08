@@ -48,7 +48,7 @@ abstract class Meta_Box {
     /**
      * @return string The Post Type slug for which to add the meta box
      */
-    protected abstract function get_post_type();
+    abstract protected function get_post_type();
 
     final public function add_meta_boxes_handler( $post ) {
 
@@ -92,7 +92,7 @@ abstract class Meta_Box {
         return true;
     }
 
-    protected abstract function save_post_meta( $post_id );
+    abstract protected function save_post_meta( $post_id );
 
     protected function get_id() {
         $qualified_class_name = strtolower( get_class( $this ) );
@@ -100,7 +100,7 @@ abstract class Meta_Box {
         return basename( str_replace( '\\', '/', $qualified_class_name ) );
     }
 
-    protected abstract function get_title();
+    abstract protected function get_title( $post = null );
 
     /**
      * This method should be overridden to return the contents of the metabox.
