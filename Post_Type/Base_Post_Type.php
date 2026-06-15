@@ -16,7 +16,7 @@ abstract class Base_Post_Type {
     private static $post_types = [];
 
     public static function init() {
-        $class = get_called_class();
+        $class = static::class;
 
         if ( isset( self::$post_types[ $class ] ) ) return;
 
@@ -81,17 +81,17 @@ abstract class Base_Post_Type {
     /**
      * Returns the post type slug.
      */
-    protected abstract function get_post_type();
+    abstract protected function get_post_type();
 
     /**
      * Returns the singular name for the post type. The name should be initial caps.
      */
-    protected abstract function get_singular_name();
+    abstract protected function get_singular_name();
 
     /**
      * Returns the plural name for the post type. The name should be initial caps.
      */
-    protected abstract function get_plural_name();
+    abstract protected function get_plural_name();
 
     /**
      * Returns the post type arguments array.
@@ -118,7 +118,7 @@ abstract class Base_Post_Type {
      * Returns the post type slug for the class.
      */
     public static function post_type() {
-        $class = get_called_class();
+        $class = static::class;
 
         return self::$post_types[ $class ]->get_post_type();
     }

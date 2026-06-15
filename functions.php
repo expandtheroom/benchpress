@@ -21,13 +21,14 @@ if ( ! function_exists( __NAMESPACE__ . '\get_partial' ) ) {
             $partial .= '.php';
         }
 
+        $partial_path_info = pathinfo( $partial );
+
         if ( file_exists( $partial ) ) {
             // First check if the file exists. This allows absolute paths to be provided.
             $template = $partial;
         } else {
             // If not, use locate template and first search in partials directory,
             // then fall back to default theme directory.
-            $partial_path_info = pathinfo( $partial );
             $template = locate_template( [
                 apply_filters( 'benchpress/partials_directory', 'partials' ) . '/' . $partial,
                 apply_filters( 'benchpress/partials_directory', 'partials' ) . '/' . $partial_path_info['dirname'] . '/' . $partial_path_info['filename'] . '/' . $partial_path_info['basename'],
@@ -77,7 +78,7 @@ if ( ! function_exists( __NAMESPACE__ . '\get_user_role' ) ) {
      *
      * @return string|bool Returns the user role if found, false otherwise.
      */
-    function get_user_role( \WP_User $user = null ) {
+    function get_user_role( ?\WP_User $user = null ) {
         $user = $user ? new \WP_User( $user ) : \wp_get_current_user();
 
         return $user->roles ? $user->roles[0] : false;

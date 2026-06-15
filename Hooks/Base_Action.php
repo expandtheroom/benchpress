@@ -12,17 +12,17 @@ namespace BenchPress\Hooks;
  */
 abstract class Base_Action extends Base_Hook {
 
-    final protected function add_hook( Base_Hook $instance ) {
+    final protected function add_hook() {
         add_action(
-            $instance->get_action(),
-            [ $instance, '__callback' ],
-            $instance->get_priority(),
-            $instance->get_arg_count()
+            $this->get_action(),
+            [ $this, '__callback' ],
+            $this->get_priority(),
+            $this->get_arg_count()
         );
     }
 
     final public static function remove() {
-        $class = get_called_class();
+        $class = static::class;
 
         if ( ! isset( static::$instances[ $class ] ) ) return;
 
