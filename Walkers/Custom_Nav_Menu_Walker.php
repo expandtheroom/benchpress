@@ -35,41 +35,41 @@ class Custom_Nav_Menu_Walker extends \Walker_Nav_Menu {
         'link_classes' => []
     ];
 
-    public function __construct( $args ) {
-        $this->args = wp_parse_args( $args, $this->args );
+    public function __construct($args) {
+        $this->args = wp_parse_args($args, $this->args);
     }
 
-    public function start_lvl( &$output, $depth = 0, $args = [] ) {
-        $indent = str_repeat( "\t", $depth );
-        $classes = implode( ' ', $this->args['level_classes'] );
+    public function start_lvl(&$output, $depth = 0, $args = []) {
+        $indent = str_repeat("\t", $depth);
+        $classes = implode(' ', $this->args['level_classes']);
 
-        if ( empty( $this->args['level_el'] ) ) {
+        if (empty($this->args['level_el'])) {
             return;
         }
 
-        $output .= "\n$indent<{$this->args['level_el']} class=\"#{$classes}\">\n";
+        $output .= "\n$indent<{$this->args['level_el']} class=\"{$classes}\">\n";
     }
 
-    public function end_lvl( &$output, $depth = 0, $args = [] ) {
-        if ( empty( $this->args['level_el'] ) ) {
+    public function end_lvl(&$output, $depth = 0, $args = []) {
+        if (empty($this->args['level_el'])) {
             return;
         }
 
-        $indent = str_repeat( "\t", $depth );
+        $indent = str_repeat("\t", $depth);
         $output .= "$indent</{$this->args['level_el']}>\n";
     }
 
-    public function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
-        $indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
+    public function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+        $indent = ($depth) ? str_repeat("\t", $depth) : '';
 
-        if ( $this->args['include_wp_classes'] ) {
-            $classes = empty( $item->classes ) ? array() : (array) $item->classes;
+        if ($this->args['include_wp_classes']) {
+            $classes = empty($item->classes) ? array() : (array) $item->classes;
             $classes[] = 'menu-item-' . $item->ID;
         } else {
             $classes = [];
         }
 
-        $classes = array_merge( $classes, $this->args['el_container_classes'] );
+        $classes = array_merge($classes, $this->args['el_container_classes']);
 
         /**
          * Filters the arguments for a single nav menu item.
@@ -80,7 +80,22 @@ class Custom_Nav_Menu_Walker extends \Walker_Nav_Menu {
          * @param object $item  Menu item data object.
          * @param int    $depth Depth of menu item. Used for padding.
          */
-        $args = apply_filters( 'nav_menu_item_args', $args, $item, $depth );
+        $args = apply_filters('nav_menu_item_args', $args, $item, $depth);
+
+        if (!\is_object($args)) {
+            $args = (object) wp_parse_args(\is_array($args) ? $args : [], [
+                'before' => '',
+                'after' => '',
+                'link_before' => '',
+                'link_after' => '',
+            ]);
+        } else {
+            foreach (['before', 'after', 'link_before', 'link_after'] as $prop) {
+                if (!isset($args->$prop)) {
+                    $args->$prop = '';
+                }
+            }
+        }
 
         /**
          * Filters the CSS class(es) applied to a menu item's list item element.
@@ -93,8 +108,8 @@ class Custom_Nav_Menu_Walker extends \Walker_Nav_Menu {
          * @param array  $args    An array of wp_nav_menu() arguments.
          * @param int    $depth   Depth of menu item. Used for padding.
          */
-        $class_names = implode( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args, $depth ) );
-        $class_names = $class_names ? ' class="' . esc_attr( $class_names ) . '"' : '';
+        $class_names = implode(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args, $depth));
+        $class_names = $class_names ? ' class="' . esc_attr($class_names) . '"' : '';
 
         /**
          * Filters the ID applied to a menu item's list item element.
@@ -107,25 +122,25 @@ class Custom_Nav_Menu_Walker extends \Walker_Nav_Menu {
          * @param array  $args    An array of wp_nav_menu() arguments.
          * @param int    $depth   Depth of menu item. Used for padding.
          */
-        $id = apply_filters( 'nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args, $depth );
-        $id = $id ? ' id="' . esc_attr( $id ) . '"' : '';
+        $id = apply_filters('nav_menu_item_id', 'menu-item-' . $item->ID, $item, $args, $depth);
+        $id = $id ? ' id="' . esc_attr($id) . '"' : '';
 
-        if ( ! $this->args['include_wp_classes'] ) {
+        if (!$this->args['include_wp_classes']) {
             $id = '';
         }
 
-        if ( ! empty( $this->args['el_container'] ) ) {
-            $output .= $indent . '<' . $this->args['el_container'] . ' '  . $id . $class_names .'>';
+        if (!empty($this->args['el_container'])) {
+            $output .= $indent . '<' . $this->args['el_container'] . ' ' . $id . $class_names . '>';
         }
 
         $atts = array();
-        $atts['title']  = ! empty( $item->attr_title ) ? $item->attr_title : '';
-        $atts['target'] = ! empty( $item->target )     ? $item->target     : '';
-        $atts['rel']    = ! empty( $item->xfn )        ? $item->xfn        : '';
-        $atts['href']   = ! empty( $item->url )        ? $item->url        : '';
+        $atts['title'] = !empty($item->attr_title) ? $item->attr_title : '';
+        $atts['target'] = !empty($item->target) ? $item->target : '';
+        $atts['rel'] = !empty($item->xfn) ? $item->xfn : '';
+        $atts['href'] = !empty($item->url) ? $item->url : '';
 
-        if ( ! empty( $this->args['link_classes'] ) ) {
-            $atts['class'] = implode( ' ', $this->args['link_classes'] );
+        if (!empty($this->args['link_classes'])) {
+            $atts['class'] = implode(' ', $this->args['link_classes']);
         }
 
         /**
@@ -146,18 +161,18 @@ class Custom_Nav_Menu_Walker extends \Walker_Nav_Menu {
          * @param array  $args  An array of wp_nav_menu() arguments.
          * @param int    $depth Depth of menu item. Used for padding.
          */
-        $atts = apply_filters( 'nav_menu_link_attributes', $atts, $item, $args, $depth );
+        $atts = apply_filters('nav_menu_link_attributes', $atts, $item, $args, $depth);
 
         $attributes = '';
-        foreach ( $atts as $attr => $value ) {
-            if ( ! empty( $value ) ) {
-                $value = ( 'href' === $attr ) ? esc_url( $value ) : esc_attr( $value );
+        foreach ($atts as $attr => $value) {
+            if (!empty($value)) {
+                $value = ('href' === $attr) ? esc_url($value) : esc_attr($value);
                 $attributes .= ' ' . $attr . '="' . $value . '"';
             }
         }
 
         /** This filter is documented in wp-includes/post-template.php */
-        $title = apply_filters( 'the_title', $item->title, $item->ID );
+        $title = apply_filters('the_title', $item->title, $item->ID);
 
         /**
          * Filters a menu item's title.
@@ -169,10 +184,10 @@ class Custom_Nav_Menu_Walker extends \Walker_Nav_Menu {
          * @param array  $args  An array of wp_nav_menu() arguments.
          * @param int    $depth Depth of menu item. Used for padding.
          */
-        $title = apply_filters( 'nav_menu_item_title', $title, $item, $args, $depth );
+        $title = apply_filters('nav_menu_item_title', $title, $item, $args, $depth);
 
         $item_output = $args->before;
-        $item_output .= '<a'. $attributes .'>';
+        $item_output .= '<a' . $attributes . '>';
         $item_output .= $args->link_before . $title . $args->link_after;
         $item_output .= '</a>';
         $item_output .= $args->after;
@@ -191,11 +206,11 @@ class Custom_Nav_Menu_Walker extends \Walker_Nav_Menu {
          * @param int    $depth       Depth of menu item. Used for padding.
          * @param array  $args        An array of wp_nav_menu() arguments.
          */
-        $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
+        $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
     }
 
-    public function end_el( &$output, $item, $depth = 0, $args = null ) {
-        if ( ! empty( $this->args['el_container'] ) ) {
+    public function end_el(&$output, $item, $depth = 0, $args = null) {
+        if (!empty($this->args['el_container'])) {
             $output .= "</{$this->args['el_container']}>\n";
         }
     }
